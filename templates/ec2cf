@@ -1,12 +1,21 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "CloudFormation Template to deploy EC2 instance"
 
+Parameter:
+  "KeyPairName": {"Type": "AWS::EC2::KeyPair::KeyName"}
+
 Resources:
   MyEC2Instance:
     Type: "AWS::EC2::Instance"
     Properties:
-      InstanceType: "t2.micro"
+      InstanceType: "t3.micro"
       ImageId: "ami-0c55b159cbfafe1f0"  # Amazon Linux AMI
-      KeyName: "my-key-pair"            # Replace with your key pair name
+      KeyName: {"Ref": "KeyPairName"}            # Replace with your key pair name
       SecurityGroups:
-        - "MySecurityGroup"   
+        - "MySecurityGroup"   # - indicate list component, this can also be written as SecurityGroups: ["MySECURITYGRP", "Helpsg"]
+                              
+
+    Mys3Instance:
+      Type: "AWS::S3"
+      Properties:
+        
